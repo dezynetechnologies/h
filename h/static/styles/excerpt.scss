@@ -8,7 +8,7 @@
   }
 
   .more, .less {
-    color: rgba(189, 28, 43, 0.5);
+    color: rgba(189, 28, 43, 0.7);
     background: #fff;
     font-style: italic;
     font-family: Georgia,"Bitstream Charter","Times","Times New Roman",serif;
@@ -29,6 +29,25 @@
       margin-left: -3em;
       padding-right: 40px;
       @include background(linear-gradient(to right, rgba(255, 255, 255, 0), white 50%));
+    }
+  }
+}
+
+.annotation-body {
+  &.excerpt {
+    .more, .less {
+      font-style: normal;
+      font-weight: 600;
+      font-family: $sans-font-family;
+    }
+
+    .more {
+      left: 0;
+      width: 100%;
+      height: 2.6em;
+      line-height: 4em;
+      text-align: right;
+      @include background(linear-gradient(to bottom, rgba(255, 255, 255, 0), white 50%));
     }
   }
 }

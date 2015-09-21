@@ -63,8 +63,11 @@
 
   <!-- Excerpts -->
   <section class="annotation-section"
-           ng-repeat="target in vm.annotation.target track by $index">
-    <blockquote class="annotation-quote excerpt"
+           ng-repeat="target in vm.annotation.target track by $index"
+           excerpt
+           excerpt-if="true"
+           maxheight="{'max-height':'4.8em'}">
+    <blockquote class="annotation-quote"
                 ng-hide="target.diffHTML && vm.showDiff"
                 ng-bind-html="selector.exact"
                 ng-repeat="selector in target.selector
@@ -84,12 +87,14 @@
   <!-- / Excerpts -- >
 
   <!-- Body -->
-  <section name="text"
-           class="annotation-body excerpt"
-           ng-model="vm.annotation.text"
-           ng-readonly="!vm.editing"
-           markdown>
-  </section>
+  <div excerpt excerpt-if="!vm.editing" maxheight="{'max-height':'16.2em'}" excerpt-bottom-gradient="true">
+    <section name="text"
+             class="annotation-body"
+             ng-model="vm.annotation.text"
+             ng-readonly="!vm.editing"
+             markdown>
+    </section>
+  </div>
   <!-- / Body -->
 
   <!-- Tags -->

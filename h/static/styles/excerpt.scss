@@ -1,11 +1,14 @@
 @import "compass/css3/images";
 
 .excerpt {
-  position: relative;
-
-  &.show-full-excerpt {
+  &.excerpt-uncollapsed {
     max-height: 100% !important;
   }
+}
+
+excerpt, [excerpt] {
+  overflow: hidden;
+  position: relative;
 
   .more, .less {
     color: rgba(189, 28, 43, 0.7);
@@ -31,10 +34,8 @@
       @include background(linear-gradient(to right, rgba(255, 255, 255, 0), white 50%));
     }
   }
-}
 
-.annotation-body {
-  &.excerpt {
+  .excerpt-bottom-gradient {
     .more, .less {
       font-style: normal;
       font-weight: 600;
@@ -51,3 +52,4 @@
     }
   }
 }
+

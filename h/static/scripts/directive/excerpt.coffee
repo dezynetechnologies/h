@@ -1,35 +1,48 @@
 ###*
 # @ngdoc directive
 # @name excerpt
-# @restrict C
+# @restrict AE
 # @description Checks to see if text is overflowing its container.
 # If so, it prepends/appends expanders/collapsers. Note, to work
 # the element needs a max height.
 ###
-module.exports = [ '$timeout', ($timeout) ->
+module.exports = ->
   link: (scope, elem, attr, ctrl) ->
-    # Check for excerpts if an annotation has been created / edited.
-    scope.$watch (-> scope.vm.editing), (editing) ->
-      if editing
-        elem.find('.more').remove()
-        elem.find('.less').remove()
-      scope.excerpt()
+    scope.collapsed = true
 
-    # Check for excerpts on threadCollapseToggle event.
-    scope.$on 'threadToggleCollapse', (value) ->
-      scope.excerpt()
+    scope.isOverflowing = ->
+      excerpt = elem[0].querySelector('.excerpt')
+      if excerpt == null
+        return false
+      return elem[0].scrollHeight > elem[0].clientHeight
 
-    do scope.excerpt = ->
-      $timeout ->
-        if elem.find('.more').length == 0
-          if elem[0].scrollHeight > elem[0].clientHeight
-            elem.prepend angular.element '<span class="more"> &nbsp;&nbsp;More</span>'
-            elem.append angular.element '<span class="less"> Less</span>'
-            elem.find('.more').on 'click', ->
-              $(this).hide()
-              elem.addClass('show-full-excerpt')
-            elem.find('.less').on 'click', ->
-              elem.find('.more').show()
-              elem.removeClass('show-full-excerpt')
-  restrict: 'C'
-]
+    scope.toggle = ->
+      scope.collapsed = !scope.collapsed
+
+  scope:
+    enabled: '=excerptIf'
+    maxheight: '=maxheight'
+    bottomGradient: '=excerptBottomGradient'
+  restrict: 'AE'
+  transclude: true
+  template: '''
+    <ng-transclude></ng-transclude>
+
+    <div class="excerpt-wrapper">
+      <div class="excerpt" ng-style="maxheight"
+         ng-class="{'excerpt-uncollapsed': !collapsed}"
+         ng-transclude>
+      </div>
+      
+      <div class="excerpt-control" ng-if="enabled" ng-class="{'excerpt-bottom-gradient': bottomGradient}">
+        <a ng-if="isOverflowing() && collapsed"
+           ng-click="toggle()"
+           class="more"
+           href="">More</a>
+        <a ng-if="!collapsed"
+           class="less"
+           ng-click="toggle()"
+           href="">Less</a>
+      </div>
+    </div>
+  '''

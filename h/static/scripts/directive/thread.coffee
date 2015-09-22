@@ -12,7 +12,8 @@ uuid = require('node-uuid')
 # `ThreadController` provides an API for the thread directive controlling
 # the collapsing behavior.
 ###
-ThreadController = ->
+ThreadController = [
+  ->
     @container = null
     @collapsed = true
     @parent = null
@@ -158,6 +159,7 @@ ThreadController = ->
     this.id = uuid.v4()
 
     this
+]
 
 
 ###*

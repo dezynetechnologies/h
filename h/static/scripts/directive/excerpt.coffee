@@ -8,6 +8,12 @@
 ###
 module.exports = ->
   link: (scope, elem, attr, ctrl) ->
+    if scope.enabled == undefined
+      scope.enabled = true
+
+    if scope.showControls == undefined
+      scope.showControls = true
+
     scope.collapsed = true
 
     scope.isOverflowing = ->
@@ -20,29 +26,10 @@ module.exports = ->
       scope.collapsed = !scope.collapsed
 
   scope:
-    enabled: '=excerptIf'
-    maxheight: '=maxheight'
-    bottomGradient: '=excerptBottomGradient'
+    excerptHeight: '=excerptHeight'
+    enabled: '=?excerptIf'
+    bottomGradient: '=?excerptBottomGradient'
+    showControls: '=?excerptShowControls'
   restrict: 'AE'
   transclude: true
-  template: '''
-    <ng-transclude></ng-transclude>
-
-    <div class="excerpt-wrapper">
-      <div class="excerpt" ng-style="maxheight"
-         ng-class="{'excerpt-uncollapsed': !collapsed}"
-         ng-transclude>
-      </div>
-      
-      <div class="excerpt-control" ng-if="enabled" ng-class="{'excerpt-bottom-gradient': bottomGradient}">
-        <a ng-if="isOverflowing() && collapsed"
-           ng-click="toggle()"
-           class="more"
-           href="">More</a>
-        <a ng-if="!collapsed"
-           class="less"
-           ng-click="toggle()"
-           href="">Less</a>
-      </div>
-    </div>
-  '''
+  templateUrl: 'excerpt.html'

@@ -1,12 +1,12 @@
-<ng-transclude ng-if="enabled"></ng-transclude>
+<ng-transclude></ng-transclude>
 
-<div class="excerpt-wrapper" ng-if="enabled">
-  <div class="excerpt" ng-style="excerptHeight"
-     ng-class="{'excerpt-uncollapsed': !collapsed}"
-     ng-transclude>
+<div class="excerpt-wrapper" ng-class="{'excerpt-uncollapsed': !collapsed}">
+  <div class="excerpt"
+       ng-class="excerptClass"
+       ng-transclude>
   </div>
   
-  <div class="excerpt-control" ng-if="enabled && showControls" ng-class="{'excerpt-bottom-gradient': bottomGradient}">
+  <div class="excerpt-control" ng-if="showControls" ng-class="{'excerpt-bottom-gradient': bottomGradient}">
     <a ng-if="isOverflowing() && collapsed"
        ng-click="toggle()"
        class="more"

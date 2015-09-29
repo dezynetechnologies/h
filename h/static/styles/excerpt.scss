@@ -1,14 +1,22 @@
 @import "compass/css3/images";
 
-.excerpt {
-  &.excerpt-uncollapsed {
-    max-height: 100% !important;
-  }
-}
-
 excerpt, [excerpt] {
   overflow: hidden;
   position: relative;
+
+  .excerpt-wrapper {
+    .excerpt {
+      // Heights for different sections.
+      &.excert-quote-max-height { max-height: 4.8em; }
+      &.excerpt-body-maxheight { max-height: 16.2em; }
+    }
+
+    &.excerpt-uncollapsed {
+      .excerpt {
+        max-height: 100% !important;
+      }
+    }
+  }
 
   .more, .less {
     color: rgba(189, 28, 43, 0.7);

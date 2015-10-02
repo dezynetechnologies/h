@@ -48,7 +48,7 @@ def test_create_form_creates_form_with_GroupSchema(GroupSchema, Form):
 
     views.create_form(request=_mock_request())
 
-    Form.assert_called_once_with(test_schema)
+    Form.assert_called_once_with(test_schema, buttons=mock.ANY)
 
 
 @create_form_fixtures
@@ -89,7 +89,7 @@ def test_create_inits_form_with_schema(GroupSchema, Form):
 
     views.create(request=_mock_request())
 
-    Form.assert_called_once_with(schema)
+    Form.assert_called_once_with(schema, buttons=mock.ANY)
 
 
 @create_fixtures

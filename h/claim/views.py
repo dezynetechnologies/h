@@ -86,7 +86,8 @@ def _validate_request(request):
 
 def _form_for_update_account(request):
     schema = schemas.UpdateAccountSchema().bind(request=request)
-    return deform.Form(schema)
+    form = deform.Form(schema, buttons=(_('Claim account'),))
+    return form
 
 
 def _perform_already_claimed_redirect(request):

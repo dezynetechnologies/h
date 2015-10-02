@@ -19,6 +19,7 @@ class GroupSchema(CSRFSchema):
         colander.String(),
         title=_("Group name"),
         hint=_("a human-readable name for your group"),
+        autofocus=True,
         validator=colander.Length(
             min=GROUP_NAME_MIN_LENGTH,
             max=GROUP_NAME_MAX_LENGTH))

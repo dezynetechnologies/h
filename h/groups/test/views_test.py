@@ -48,7 +48,7 @@ def test_create_form_creates_form_with_GroupSchema(GroupSchema, Form):
 
     views.create_form(request=_mock_request())
 
-    Form.assert_called_once_with(test_schema)
+    Form.assert_called_once_with(test_schema, buttons=mock.ANY)
 
 
 @create_form_fixtures
@@ -58,7 +58,7 @@ def test_create_form_returns_form(Form):
 
     template_data = views.create_form(request=_mock_request())
 
-    assert template_data["form"] == test_form
+    assert template_data["form"] == test_form.render.return_value
 
 
 @create_form_fixtures
@@ -89,7 +89,7 @@ def test_create_inits_form_with_schema(GroupSchema, Form):
 
     views.create(request=_mock_request())
 
-    Form.assert_called_once_with(schema)
+    Form.assert_called_once_with(schema, buttons=mock.ANY)
 
 
 @create_fixtures
@@ -111,7 +111,7 @@ def test_create_rerenders_form_on_validation_failure(Form):
 
     template_data = views.create(_mock_request())
 
-    assert template_data['form'] == form
+    assert template_data['form'] == form.render.return_value
     assert template_data['data'] == params
 
 

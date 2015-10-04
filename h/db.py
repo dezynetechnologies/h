@@ -19,6 +19,7 @@ from pyramid.settings import asbool
 from sqlalchemy import engine_from_config
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
+import transaction
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
@@ -62,6 +63,7 @@ def bind_engine(engine,
     session.configure(bind=engine)
     base.metadata.bind = engine
     if should_drop:
+        transaction.commit()
         base.metadata.drop_all(engine)
     if should_create:
         base.metadata.create_all(engine)

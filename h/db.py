@@ -64,6 +64,7 @@ def bind_engine(engine,
     base.metadata.bind = engine
     if should_drop:
         transaction.commit()
+        base.metadata.reflect(engine)
         base.metadata.drop_all(engine)
     if should_create:
         base.metadata.create_all(engine)
